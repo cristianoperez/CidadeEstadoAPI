@@ -62,4 +62,13 @@ public enum Estado {
 		return null;
 	}
 	
+	public static Estado getEstado(int id){
+		for(Estado e : Estado.values()){
+			if(e.getId() == id){
+				return e;
+			}
+		}
+		return null;
+	}
+	
 }

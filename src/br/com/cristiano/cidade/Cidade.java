@@ -5241,21 +5241,29 @@ public enum Cidade {
 	XAMBIOA(5507, new int[]{27}, "Xambioá" );
 
 
-	private Cidade(int cod, int[] codCidades, String cidade){
+	private Cidade(int cod, int[] codEstados, String cidade){
 		this.cod = cod;
-		this.codCidades = codCidades;
+		this.codEstados = codEstados;
 		this.cidade = cidade;
 	}
 	
 	private int cod;
-	private int[] codCidades;
+	private int[] codEstados;
 	private String cidade;
+	
 	public int getCod() {
 		return cod;
 	}
-	public int[] getCodCidades() {
-		return codCidades;
+	
+	
+	public List<Estado> getEstados(){
+		List<Estado> estados = new ArrayList<Estado>();
+		for(int codEstado : codEstados){
+			estados.add(Estado.getEstado(codEstado));
+		}
+		return estados;
 	}
+	
 	public String getCidade() {
 		return cidade;
 	}
@@ -5263,7 +5271,7 @@ public enum Cidade {
 	public static List<Cidade> getCidades(Estado estado){
 		List<Cidade> cidades = new ArrayList<Cidade>();
 		for(Cidade c : Cidade.values()){
-			for(int cod : c.codCidades){
+			for(int cod : c.codEstados){
 				if(estado.getId() == cod){
 					cidades.add(c);
 					break;
@@ -5284,7 +5292,7 @@ public enum Cidade {
 		Estado estado = Estado.getEstado(sigla);
 		List<Cidade> cidades = new ArrayList<Cidade>();
 		for(Cidade c : Cidade.values()){
-			for(int cod : c.codCidades){
+			for(int cod : c.codEstados){
 				if(estado.getId() == cod){
 					cidades.add(c);
 					break;
@@ -5304,5 +5312,6 @@ public enum Cidade {
 	private static String removerAcentos(String str) {
 	    return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 	}
+	
 
 }
